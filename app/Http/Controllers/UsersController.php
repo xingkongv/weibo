@@ -17,4 +17,14 @@ class UsersController extends Controller
         $user->gravatar('140');
         return view('users.show', compact('user'));
     }
+
+    public function store(Request $request)
+    {
+        $this->validate( $request , [
+            'name' => 'required|max:50',
+            'email' => 'required|email|uniqe:users|max:255',
+            'password' => 'required|confirmed|min:6',
+        ] );
+        return;
+    }
 }
