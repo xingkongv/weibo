@@ -16,12 +16,18 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('auth', [            
-            'except' => ['show', 'create', 'store']
+            'except' => ['show', 'create', 'store' , 'index']
         ]);
 
         $this->middleware('guest', [
             'only' => ['create']
         ]);
+    }
+
+    public function index()
+    {
+        $users = User::paginate(5);
+        return view('users.index', compact('users'));
     }
 
     public function create()
