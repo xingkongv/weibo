@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-// use Illuminate\Routing\Controller;
 use Illuminate\Validation\Validator;
 use Mail;
 use Auth;
@@ -39,8 +38,10 @@ class UsersController extends Controller
 
     public function show(User $user)
     {
-        $user->gravatar('140');
-        return view('users.show', compact('user'));
+        // $user->gravatar('140');
+        // return view('users.show', compact('user'));
+        $statuses = $user->statuses()->orderBy('created_at', 'desc')->paginate(10);
+        return view('users.show', compact('user', 'statuses'));
     }
 
     public function store(Request $request)
